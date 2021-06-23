@@ -270,6 +270,16 @@ class Entry(BaseElement):
         }
         return '{{REF:{}@I:{}}}'.format(attribute_to_field[attribute], self.uuid.hex.upper())
 
+    def remove_from_history(self, entry):
+        '''
+        Remove the entry from self's history
+        '''
+        if entry.is_a_history_entry:
+            hist = self._element.find('History')
+
+            if hist is not None:
+                self._element.find('History').remove(entry._element)
+
     def save_history(self):
         '''
         Save the entry in its history
